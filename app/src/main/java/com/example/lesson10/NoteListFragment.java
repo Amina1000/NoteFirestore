@@ -17,11 +17,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.notes.R;
-
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Objects;
 
 public class NoteListFragment extends Fragment {
@@ -111,7 +107,7 @@ public class NoteListFragment extends Fragment {
         animator.setRemoveDuration(MY_DEFAULT_DURATION);
         recyclerView.setItemAnimator(animator);
         // Установим слушателя
-        adapter.SetOnItemClickListener((view, position, itemId) -> {
+        adapter.setOnItemClickListener((view, position, itemId) -> {
             view.setBackgroundResource(R.color.teal_700);
             if (itemId == adapter.CMD_UPDATE) {
                 ((Controller) requireActivity())
