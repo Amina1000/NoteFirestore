@@ -35,6 +35,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.BaseViewHolder
 
     // Передаём в конструктор источник данных
     // В нашем случае это массив, но может быть и запрос к БД
+    // Внесла коррективы в этот класс.
+    // Изменили конструктор, добавили обозревателя.
     public void setDataSource(NoteSource dataSource) {
         this.dataSource = dataSource;
         notifyDataSetChanged();

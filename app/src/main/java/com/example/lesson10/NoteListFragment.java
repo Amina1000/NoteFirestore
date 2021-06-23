@@ -43,6 +43,8 @@ public class NoteListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         context = getContext();
         initView(view);
+        // создаем подключение и получаем данные. метод init ооповещает обозревателей, т.к метод
+        // асинхронный
         data = new NoteSourceFirebaseImp().init(noteSource ->adapter.notifyDataSetChanged());
         adapter.setDataSource(data);
         initPopupMenu(view);
@@ -126,6 +128,7 @@ public class NoteListFragment extends Fragment {
         if (data.size() != position) {
             data.updateNoteData(position, newNote);
         } else data.addNoteData(newNote);
+        //метод init ооповещает обозревателей
         data.init(noteSource ->adapter.notifyDataSetChanged());
         //позицианируется на новой позиции
         recyclerView.scrollToPosition(position);

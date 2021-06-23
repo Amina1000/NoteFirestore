@@ -11,6 +11,12 @@ import java.util.Map;
  * @author Amina
  * 23.06.2021
  */
+/*
+  без данного класса можно бло обойтись)
+  преобразует полученные данные из MAP в объект.
+  есть более простые методики.
+ */
+
 public class NoteMapping {
     public static class Fields {
 
@@ -26,15 +32,6 @@ public class NoteMapping {
         Note answer = new Note((String) doc.get(Fields.NAME),
                 (String) doc.get(Fields.DESCRIPTION),date.toDate());
         answer.setId(id);
-        return answer;
-    }
-
-    public static Map<String, Object> toDocument(Note noteData) {
-        Map<String, Object> answer = new HashMap<>();
-        answer.put(Fields.NAME, noteData.getName());
-        answer.put(Fields.DESCRIPTION, noteData.getDescription());
-        answer.put(Fields.AUTHOR, noteData.getAuthor());
-        answer.put(Fields.DATE, noteData.getDate());
         return answer;
     }
 }

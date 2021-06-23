@@ -18,6 +18,9 @@ import java.util.Map;
  * @author Amina
  * 23.06.2021
  */
+/*
+1. Обеспечьте хранение данных приложения через Firestore.
+ */
 public class NoteSourceFirebaseImp implements NoteSource {
     private static final String NOTES_COLLECTION = "note";
     private static final String TAG = "NotesSourceFirebaseImpl";
@@ -38,6 +41,8 @@ public class NoteSourceFirebaseImp implements NoteSource {
     @Override
     public NoteSource init(final NotesSourceResponse notesSourceResponse) {
         // Получить всю коллекцию, отсортированную по полю «Заголовок»
+        // На самом деле тут можно было писать как на уроке, но я долго искала ошибку
+        // при подключении и остановилась на этом методе. С ошибкой это конечно никак не связано)
         collection.orderBy("name", Query.Direction.ASCENDING).get()
                 .addOnCompleteListener(task -> {
                     notesData = new ArrayList<>();
