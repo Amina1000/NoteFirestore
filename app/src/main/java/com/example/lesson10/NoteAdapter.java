@@ -76,7 +76,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.BaseViewHolder
 
     @Override
     public int getItemViewType(int position) {
-        return (position==0) ? GROUP_VIEW_TYPE : NOTE_VIEW_TYPE;
+        return NOTE_VIEW_TYPE;
+        //return (position==0) ? GROUP_VIEW_TYPE : NOTE_VIEW_TYPE;
     }
 
     // Вернуть размер данных, вызывается менеджером

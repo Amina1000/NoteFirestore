@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
@@ -47,6 +48,8 @@ public class NoteListFragment extends Fragment{
     }
 
     private void initView(View view) {
+        TextView userName = view.findViewById(R.id.user_name);
+        userName.setText(User.nameUser);
         recyclerView = view.findViewById(R.id.recycler_view_notes);
         initRecyclerView();
     }
