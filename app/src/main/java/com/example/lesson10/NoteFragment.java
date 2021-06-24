@@ -17,8 +17,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.notes.R;
-
 import java.util.Calendar;
 import java.util.Date;
 

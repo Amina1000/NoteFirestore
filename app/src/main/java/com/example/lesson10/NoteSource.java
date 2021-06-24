@@ -10,8 +10,6 @@ public interface NoteSource {
     NoteSource init(NotesSourceResponse notesSourceResponse);
     Note getNoteData(int position);
     int size();
-    boolean isGroupItem(int position);
-    String getGroupTitle(int position);
     void deleteNoteData(int position);
     void updateNoteData(int position, Note noteData);
     void addNoteData(Note noteData);

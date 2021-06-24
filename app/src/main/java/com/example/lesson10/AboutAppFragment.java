@@ -8,9 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.notes.R;
-
-
 public class AboutAppFragment extends Fragment {
 
     @Override

@@ -2,8 +2,6 @@ package com.example.lesson10;
 
 import android.content.res.Resources;
 
-import com.example.notes.R;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,9 +16,8 @@ import java.util.List;
  */
 public class NoteSourceImp implements NoteSource{
 
-
     private List <Object> objectListItem;
-    private Resources resources;
+    private final Resources resources;
 
     public NoteSourceImp(Resources resources) {
         this.resources = resources;

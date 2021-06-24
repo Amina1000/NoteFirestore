@@ -13,8 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.notes.R;
-
 import java.util.Locale;
 
 public class SettingsFragment extends Fragment {

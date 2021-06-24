@@ -8,7 +8,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,11 +25,10 @@ public class NoteSourceFirebaseImp implements NoteSource {
     private static final String TAG = "NotesSourceFirebaseImpl";
 
     // База данных Firestore
-    private FirebaseFirestore store = FirebaseFirestore.getInstance();
-    ;
+    private final FirebaseFirestore store = FirebaseFirestore.getInstance();
 
     // Коллекция документов
-    private CollectionReference collection = store.collection(NOTES_COLLECTION);
+    private final CollectionReference collection = store.collection(NOTES_COLLECTION);
 
     // Загружаемый список карточек
     private List<Note> notesData = new ArrayList<>();
@@ -50,6 +48,7 @@ public class NoteSourceFirebaseImp implements NoteSource {
 
                         Map<String, Object> doc = documentSnapshot.getData();
                         String id = documentSnapshot.getId();
+                        assert doc != null;
                         Note noteData = NoteMapping.toNoteData(id, doc);
 
                         notesData.add(noteData);
@@ -87,16 +86,6 @@ public class NoteSourceFirebaseImp implements NoteSource {
         // Добавить документ
         collection.add(noteData).addOnSuccessListener(documentReference ->
                 noteData.setId(documentReference.getId()));
-    }
-
-    @Override
-    public boolean isGroupItem(int position) {
-        return false;
-    }
-
-    @Override
-    public String getGroupTitle(int position) {
-        return null;
     }
 
     @Override

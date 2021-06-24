@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class NoteListFragment extends Fragment {
+public class NoteListFragment extends Fragment{
 
     private RecyclerView recyclerView;
     private Context context;
@@ -74,6 +74,7 @@ public class NoteListFragment extends Fragment {
         });
     }
 
+
     public interface Controller {
         void openNoteScreen(Note note, int position);
     }
@@ -86,7 +87,7 @@ public class NoteListFragment extends Fragment {
         }
     }
 
-    private void initRecyclerView() {
+     private void initRecyclerView() {
 
         recyclerView.setHasFixedSize(true);
 
