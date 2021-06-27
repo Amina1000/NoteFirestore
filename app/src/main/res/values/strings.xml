@@ -27,4 +27,8 @@
     <string name="group_title">Группа</string>
     <string name="date">Дата создания</string>
     <string name="continue_">Продолжить...</string>
+    <string name="alert_dialog_delete">Удаление заметки</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="exclamation">Вы уверены, что хотите удалить заметку?</string>
 </resources>

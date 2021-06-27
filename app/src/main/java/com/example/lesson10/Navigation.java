@@ -28,4 +28,8 @@ public class Navigation {
         }
         fragmentTransaction.addToBackStack(null).commit();
     }
+    public FragmentManager getFragmentManager() {
+        return fragmentManager;
+    }
+
 }
