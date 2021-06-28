@@ -25,13 +25,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class NoteListFragment extends Fragment {
+public class NoteListFragment extends Fragment{
 
     private RecyclerView recyclerView;
     private Context context;
     private NoteSource data;
     private NoteAdapter adapter;
-    private Navigation navigation;
     private static final int MY_DEFAULT_DURATION = 1000;
 
     @Override
@@ -69,7 +68,7 @@ public class NoteListFragment extends Fragment {
             popup.setOnMenuItemClickListener(item -> {
                 if (item.getItemId() == R.id.action_add) {
                     //2.* Переделайте ввод и редактирование данных через диалоговое окно.
-                    DialogFragment dlgBuilder = new NoteDialogCreateFragment();
+                    DialogFragment dlgBuilder = new NoteDialogCreateFragment(data.size());
                     MainActivity activity = (MainActivity)context;
                     Navigation navigation = activity.getNavigation();
                     dlgBuilder.show(navigation.getFragmentManager(),"NOTE_CREATE");
@@ -88,10 +87,6 @@ public class NoteListFragment extends Fragment {
 
     public interface Controller {
         void openNoteScreen(Note note, int position);
-    }
-
-    public Navigation getNavigation() {
-        return navigation;
     }
 
     @Override

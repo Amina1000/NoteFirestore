@@ -13,14 +13,29 @@ import androidx.fragment.app.FragmentTransaction;
 
 import java.util.Calendar;
 
-public class NoteDialogCreateFragment extends DialogFragment {
+public class NoteDialogCreateFragment extends DialogFragment implements NoteFragment.Controller{
+
+    private int position;
+
+    public NoteDialogCreateFragment(int position) {
+        this.position = position;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Подключаем макет
-        View view = inflater.inflate(R.layout.fragment_note_dialog_create, null);
-        setCancelable(false);
+        View view = inflater.inflate(R.layout.fragment_note_dialog_create,null);
+        //setCancelable(false);
         return view;
+    }
+
+    @Override
+    public void saveResult(Note note, int position) {
+        NoteListFragment noteListFragment = (NoteListFragment) getParentFragmentManager().findFragmentByTag("NOTES_LIST_FRAGMENT_TAG");
+        assert noteListFragment != null;
+        noteListFragment.addUpdateNote(note, position);
+        dismiss();
     }
 
     @Override
@@ -29,6 +44,8 @@ public class NoteDialogCreateFragment extends DialogFragment {
         Note newNote = new Note("", "", Calendar.getInstance().getTime());
         int idView = R.id.dialog_create;
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.add(idView, NoteFragment.newInstance(newNote, 0)).commit();
+        transaction.add(idView, NoteFragment.newInstance(newNote, position, true),"NOTES_LIST_FRAGMENT_TAG").commit();
     }
+
+
 }

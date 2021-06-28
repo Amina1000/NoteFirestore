@@ -19,7 +19,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity implements NoteFragment.Controller, NoteListFragment.Controller,AuthFragment.Controller{
+public class MainActivity extends AppCompatActivity implements NoteFragment.Controller, NoteListFragment.Controller, AuthFragment.Controller {
 
     private boolean isLandscape;
     private Navigation navigation;
@@ -33,19 +33,20 @@ public class MainActivity extends AppCompatActivity implements NoteFragment.Cont
                 Configuration.ORIENTATION_LANDSCAPE;
         readSettings();
         navigation = new Navigation(getSupportFragmentManager());
-        if (User.nameUser==null){
-            getNavigation().addFragment(R.id.main_container,AuthFragment.newInstance(), "");
-        }else {
+        if (User.nameUser == null) {
+            getNavigation().addFragment(R.id.main_container, AuthFragment.newInstance(), "");
+        } else {
             initView();
-            getNavigation().addFragment(R.id.main_container,new NoteListFragment(),"NOTES_LIST_FRAGMENT_TAG");
+            getNavigation().addFragment(R.id.main_container, new NoteListFragment(), "NOTES_LIST_FRAGMENT_TAG");
         }
     }
 
     @Override
     public void openMainScreen() {
         initView();
-        getNavigation().addFragment(R.id.main_container, new NoteListFragment(),"NOTES_LIST_FRAGMENT_TAG");
+        getNavigation().addFragment(R.id.main_container, new NoteListFragment(), "NOTES_LIST_FRAGMENT_TAG");
     }
+
     private void initView() {
         Toolbar toolbar = initToolbar();
         initDrawer(toolbar);
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements NoteFragment.Cont
     @Override
     public void openNoteScreen(Note note, int position) {
         int idView = isLandscape ? R.id.detail_container : R.id.main_container;
-        getNavigation().addFragment(idView, NoteFragment.newInstance(note, position), "");
+        getNavigation().addFragment(idView, NoteFragment.newInstance(note, position,false), "");
     }
 
     @Override
