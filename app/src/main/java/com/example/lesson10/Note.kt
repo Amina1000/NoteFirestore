@@ -1,9 +1,9 @@
-package com.example.lesson10;
+package com.example.lesson10
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import java.util.Date;
+import android.os.Parcelable
+import android.os.Parcel
+import android.os.Parcelable.Creator
+import java.util.*
 
 /**
  * homework com.example.notes
@@ -11,82 +11,33 @@ import java.util.Date;
  * @author Amina
  * 06.06.2021
  */
-public class Note implements Parcelable {
-    private String id;
-    private String name;
-    private String description;
-    private Date date;
-    private final String author;
+data class Note constructor(var name: String?, var description: String?,var date: Date) : Parcelable {
 
-    public Note(String name, String description, Date date) {
-        this.name = name;
-        this.description = description;
-        this.date = date;
-        this.author = System.getProperty("user.name");
+    var id: String? = null
+
+    constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString(),
+        Date(parcel.readLong())
+    )
+
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        dest.writeString(name)
+        dest.writeString(description)
+        dest.writeLong(date.time)
     }
 
-    protected Note(Parcel in) {
-        name = in.readString();
-        description = in.readString();
-        author = in.readString();
-        date = new Date(in.readLong());
+    override fun describeContents(): Int {
+        return 0
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(description);
-        dest.writeString(author);
-        dest.writeLong(date.getTime());
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<Note> CREATOR = new Creator<Note>() {
-        @Override
-        public Note createFromParcel(Parcel in) {
-            return new Note(in);
+    companion object CREATOR : Creator<Note> {
+        override fun createFromParcel(parcel: Parcel): Note {
+            return Note(parcel)
         }
 
-        @Override
-        public Note[] newArray(int size) {
-            return new Note[size];
+        override fun newArray(size: Int): Array<Note?> {
+            return arrayOfNulls(size)
         }
-    };
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-    public String getId() {
-        return id;
-    }
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public String getAuthor() {
-        return author;
     }
 }

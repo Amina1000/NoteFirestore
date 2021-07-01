@@ -19,6 +19,8 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 
+import java.util.Objects;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AuthFragment#newInstance} factory method to
@@ -72,7 +74,7 @@ public class AuthFragment extends Fragment {
                 .build();
 
         // Получаем клиента для регистрации и данные по клиенту
-        googleSignInClient = GoogleSignIn.getClient(getContext(), gso);
+        googleSignInClient = GoogleSignIn.getClient(getContext(),gso);
     }
 
     // Инициализация пользовательских элементов
@@ -145,7 +147,7 @@ public class AuthFragment extends Fragment {
     // Обновляем данные о пользователе на экране
     private void updateUI() {
         emailView.setText(account.getEmail());
-        User.getUserData(account.getGivenName());
+        User.INSTANCE.setNameUser(account.getGivenName());
     }
 
     // Разрешить аутентификацию и запретить остальные действия

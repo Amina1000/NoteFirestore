@@ -160,7 +160,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.BaseViewHolder
         }
 
         public void setData(NoteSource noteSourceImp, int position) {
-            title.setText(User.nameUser);
+            title.setText(User.INSTANCE.getNameUser());
         }
     }
 

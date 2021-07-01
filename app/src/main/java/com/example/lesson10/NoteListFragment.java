@@ -1,7 +1,6 @@
 package com.example.lesson10;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,7 +21,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Calendar;
 import java.util.Objects;
 
 public class NoteListFragment extends Fragment{
@@ -53,7 +51,7 @@ public class NoteListFragment extends Fragment{
 
     private void initView(View view) {
         TextView userName = view.findViewById(R.id.user_name);
-        userName.setText(User.nameUser);
+        userName.setText(User.INSTANCE.getNameUser());
         recyclerView = view.findViewById(R.id.recycler_view_notes);
         initRecyclerView();
     }

@@ -8,14 +8,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import java.util.Calendar;
 
 public class NoteDialogCreateFragment extends DialogFragment implements NoteFragment.Controller{
 
-    private int position;
+    private final int position;
 
     public NoteDialogCreateFragment(int position) {
         this.position = position;
@@ -25,9 +24,8 @@ public class NoteDialogCreateFragment extends DialogFragment implements NoteFrag
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Подключаем макет
-        View view = inflater.inflate(R.layout.fragment_note_dialog_create,null);
         //setCancelable(false);
-        return view;
+        return inflater.inflate(R.layout.fragment_note_dialog_create,null);
     }
 
     @Override

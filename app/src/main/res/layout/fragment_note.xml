@@ -28,7 +28,7 @@
         android:id="@+id/date"
         style="@style/style" />
     <TextView
-        android:id="@+id/author"
+        android:id="@+id/user"
         style="@style/style" />
     <com.google.android.material.button.MaterialButton
         android:id="@+id/save_changes"

@@ -39,7 +39,7 @@ public class NoteFragment extends Fragment {
     private EditText eDescription;
     private TextView tvDate;
     Calendar calendar;
-    private TextView tvAuthor;
+    private TextView tvUser;
     private int position;
     private boolean isDialogCall;
 
@@ -75,7 +75,7 @@ public class NoteFragment extends Fragment {
         eName = view.findViewById(R.id.name_edit_text);
         eDescription = view.findViewById(R.id.descriptions_edit_text);
         tvDate = view.findViewById(R.id.date);
-        tvAuthor = view.findViewById(R.id.author);
+        tvUser = view.findViewById(R.id.user);
         calendar=Calendar.getInstance();
         Button saveChanges = view.findViewById(R.id.save_changes);
 
@@ -129,7 +129,7 @@ public class NoteFragment extends Fragment {
         eName.setText(note.getName());
         eDescription.setText(note.getDescription());
         tvDate.setText(note.getDate().toString());
-        tvAuthor.setText(note.getAuthor());
+        tvUser.setText(User.INSTANCE.getNameUser());
 
     }
 
