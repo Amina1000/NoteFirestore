@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Objects;
 
-public class NoteListFragment extends Fragment{
+public class NoteListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private Context context;
@@ -67,9 +67,9 @@ public class NoteListFragment extends Fragment{
                 if (item.getItemId() == R.id.action_add) {
                     //2.* Переделайте ввод и редактирование данных через диалоговое окно.
                     DialogFragment dlgBuilder = new NoteDialogCreateFragment(data.size());
-                    MainActivity activity = (MainActivity)context;
+                    MainActivity activity = (MainActivity) context;
                     Navigation navigation = activity.getNavigation();
-                    dlgBuilder.show(navigation.getFragmentManager(),"NOTE_CREATE");
+                    dlgBuilder.show(navigation.getFragmentManager(), "NOTE_CREATE");
                     return true;
                 } else if (item.getItemId() == R.id.action_clear) {
                     data.clearNoteData();

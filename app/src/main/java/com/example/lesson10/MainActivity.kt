@@ -15,10 +15,9 @@ import com.example.lesson10.User.nameUser
 import com.google.android.material.navigation.NavigationView
 import java.util.*
 
-class MainActivity : AppCompatActivity(), NoteFragment.Controller, NoteListFragment.Controller,
-    AuthFragment.Controller {
+class MainActivity : AppCompatActivity(), NoteFragment.Controller, NoteListFragment.Controller,AuthFragment.Controller {
     private var isLandscape = false
-    var navigation: Navigation? = null
+    lateinit var  navigation: Navigation
         private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,10 +28,10 @@ class MainActivity : AppCompatActivity(), NoteFragment.Controller, NoteListFragm
         readSettings()
         navigation = Navigation(supportFragmentManager)
         if (nameUser == null) {
-            navigation!!.addFragment(R.id.main_container, AuthFragment.newInstance(), "")
+            navigation.addFragment(R.id.main_container, AuthFragment.newInstance(), "")
         } else {
             initView()
-            navigation!!.addFragment(
+            navigation.addFragment(
                 R.id.main_container,
                 NoteListFragment(),
                 "NOTES_LIST_FRAGMENT_TAG"
@@ -42,7 +41,7 @@ class MainActivity : AppCompatActivity(), NoteFragment.Controller, NoteListFragm
 
     override fun openMainScreen() {
         initView()
-        navigation!!.addFragment(R.id.main_container, NoteListFragment(), "NOTES_LIST_FRAGMENT_TAG")
+        navigation.addFragment(R.id.main_container, NoteListFragment(), "NOTES_LIST_FRAGMENT_TAG")
     }
 
     private fun initView() {
@@ -66,7 +65,7 @@ class MainActivity : AppCompatActivity(), NoteFragment.Controller, NoteListFragm
         navigationView.setNavigationItemSelectedListener { item: MenuItem ->
             val id = item.itemId
             if (id == R.id.action_about) {
-                navigation!!.addFragment(R.id.main_container, AboutAppFragment(), "")
+                navigation.addFragment(R.id.main_container, AboutAppFragment(), "")
                 drawer.closeDrawer(GravityCompat.START)
                 return@setNavigationItemSelectedListener true
             }
@@ -78,13 +77,13 @@ class MainActivity : AppCompatActivity(), NoteFragment.Controller, NoteListFragm
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setHomeButtonEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
         return toolbar
     }
 
     override fun openNoteScreen(note: Note, position: Int) {
         val idView = if (isLandscape) R.id.detail_container else R.id.main_container
-        navigation!!.addFragment(idView, NoteFragment.newInstance(note, position, false), "")
+        navigation.addFragment(idView, NoteFragment.newInstance(note, position, false), "")
     }
 
     override fun saveResult(note: Note, position: Int) {
@@ -125,14 +124,14 @@ class MainActivity : AppCompatActivity(), NoteFragment.Controller, NoteListFragm
         // Обработка выбора пункта меню приложения (активити)
         return when (item.itemId) {
             R.id.action_settings -> {
-                navigation!!.addFragment(R.id.main_container, SettingsFragment(), "")
+                navigation.addFragment(R.id.main_container, SettingsFragment(), "")
                 true
             }
             R.id.action_main -> {
                 val noteListFragment = supportFragmentManager.findFragmentByTag(
                     NOTES_LIST_FRAGMENT_TAG
                 ) as NoteListFragment?
-                navigation!!.addFragment(R.id.main_container, noteListFragment, "")
+                navigation.addFragment(R.id.main_container, noteListFragment, "")
                 true
             }
             R.id.action_sort -> {
