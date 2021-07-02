@@ -16,7 +16,7 @@ public class Note implements Parcelable {
     private String name;
     private String description;
     private Date date;
-    private String author;
+    private final String author;
 
     public Note(String name, String description, Date date) {
         this.name = name;

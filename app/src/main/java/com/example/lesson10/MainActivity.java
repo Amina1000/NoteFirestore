@@ -15,16 +15,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.notes.R;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity implements NoteFragment.Controller, NoteListFragment.Controller {
+public class MainActivity extends AppCompatActivity implements NoteFragment.Controller, NoteListFragment.Controller,AuthFragment.Controller{
 
     private boolean isLandscape;
-    private static final String NOTES_LIST_FRAGMENT_TAG = "NOTES_LIST_FRAGMENT_TAG";
     private Navigation navigation;
+    private static final String NOTES_LIST_FRAGMENT_TAG = "NOTES_LIST_FRAGMENT_TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +31,21 @@ public class MainActivity extends AppCompatActivity implements NoteFragment.Cont
         setContentView(R.layout.activity_main);
         isLandscape = getResources().getConfiguration().orientation ==
                 Configuration.ORIENTATION_LANDSCAPE;
-        initView();
         readSettings();
         navigation = new Navigation(getSupportFragmentManager());
-        getNavigation().addFragment(R.id.main_container, new NoteListFragment(), NOTES_LIST_FRAGMENT_TAG);
+        if (User.nameUser==null){
+            getNavigation().addFragment(R.id.main_container,AuthFragment.newInstance(), "");
+        }else {
+            initView();
+            getNavigation().addFragment(R.id.main_container,new NoteListFragment(),"NOTES_LIST_FRAGMENT_TAG");
+        }
     }
 
+    @Override
+    public void openMainScreen() {
+        initView();
+        getNavigation().addFragment(R.id.main_container, new NoteListFragment(),"NOTES_LIST_FRAGMENT_TAG");
+    }
     private void initView() {
         Toolbar toolbar = initToolbar();
         initDrawer(toolbar);
@@ -141,4 +149,5 @@ public class MainActivity extends AppCompatActivity implements NoteFragment.Cont
     public Navigation getNavigation() {
         return navigation;
     }
+
 }

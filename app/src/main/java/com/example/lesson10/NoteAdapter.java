@@ -11,8 +11,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.notes.R;
-
 
 /**
  * homework com.example.notes
@@ -27,7 +25,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.BaseViewHolder
     public final int CMD_DELETE = 1;
     private static final int NOTE_VIEW_TYPE = 1;
     private static final int GROUP_VIEW_TYPE = 0;
-    private boolean isLandscape;
+    private final boolean isLandscape;
 
     public NoteAdapter(boolean isLandscape) {
         this.isLandscape = isLandscape;
@@ -35,6 +33,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.BaseViewHolder
 
     // Передаём в конструктор источник данных
     // В нашем случае это массив, но может быть и запрос к БД
+    // Внесла коррективы в этот класс.
+    // Изменили конструктор, добавили обозревателя.
     public void setDataSource(NoteSource dataSource) {
         this.dataSource = dataSource;
         notifyDataSetChanged();
@@ -76,7 +76,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.BaseViewHolder
 
     @Override
     public int getItemViewType(int position) {
-        return dataSource.isGroupItem(position) ? GROUP_VIEW_TYPE : NOTE_VIEW_TYPE;
+        return NOTE_VIEW_TYPE;
+        //return (position==0) ? GROUP_VIEW_TYPE : NOTE_VIEW_TYPE;
     }
 
     // Вернуть размер данных, вызывается менеджером
@@ -94,7 +95,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.BaseViewHolder
         return dataSource;
     }
     // Сеттер слушателя нажатий
-    public void SetOnItemClickListener(OnItemClickListener itemClickListener) {
+    public void setOnItemClickListener(OnItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
 
@@ -150,7 +151,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.BaseViewHolder
         }
     }
 
-    public static class GroupViewHolder extends BaseViewHolder {
+    public static class GroupViewHolder extends BaseViewHolder{
 
         private final TextView title;
 
@@ -160,7 +161,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.BaseViewHolder
         }
 
         public void setData(NoteSource noteSourceImp, int position) {
-            title.setText(noteSourceImp.getGroupTitle(position));
+            title.setText(User.nameUser);
         }
     }
 

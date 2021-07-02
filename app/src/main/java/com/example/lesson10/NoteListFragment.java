@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
@@ -17,14 +18,10 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.notes.R;
-
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Objects;
 
-public class NoteListFragment extends Fragment {
+public class NoteListFragment extends Fragment{
 
     private RecyclerView recyclerView;
     private Context context;
@@ -43,12 +40,16 @@ public class NoteListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         context = getContext();
         initView(view);
+        // создаем подключение и получаем данные. метод init ооповещает обозревателей, т.к метод
+        // асинхронный
         data = new NoteSourceFirebaseImp().init(noteSource ->adapter.notifyDataSetChanged());
         adapter.setDataSource(data);
         initPopupMenu(view);
     }
 
     private void initView(View view) {
+        TextView userName = view.findViewById(R.id.user_name);
+        userName.setText(User.nameUser);
         recyclerView = view.findViewById(R.id.recycler_view_notes);
         initRecyclerView();
     }
@@ -76,6 +77,7 @@ public class NoteListFragment extends Fragment {
         });
     }
 
+
     public interface Controller {
         void openNoteScreen(Note note, int position);
     }
@@ -88,7 +90,7 @@ public class NoteListFragment extends Fragment {
         }
     }
 
-    private void initRecyclerView() {
+     private void initRecyclerView() {
 
         recyclerView.setHasFixedSize(true);
 
@@ -109,7 +111,7 @@ public class NoteListFragment extends Fragment {
         animator.setRemoveDuration(MY_DEFAULT_DURATION);
         recyclerView.setItemAnimator(animator);
         // Установим слушателя
-        adapter.SetOnItemClickListener((view, position, itemId) -> {
+        adapter.setOnItemClickListener((view, position, itemId) -> {
             view.setBackgroundResource(R.color.teal_700);
             if (itemId == adapter.CMD_UPDATE) {
                 ((Controller) requireActivity())
@@ -126,6 +128,7 @@ public class NoteListFragment extends Fragment {
         if (data.size() != position) {
             data.updateNoteData(position, newNote);
         } else data.addNoteData(newNote);
+        //метод init ооповещает обозревателей
         data.init(noteSource ->adapter.notifyDataSetChanged());
         //позицианируется на новой позиции
         recyclerView.scrollToPosition(position);
