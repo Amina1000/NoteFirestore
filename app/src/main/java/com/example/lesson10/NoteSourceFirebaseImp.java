@@ -10,6 +10,7 @@ import com.google.firebase.firestore.Query;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * homework com.example.notes
@@ -44,7 +45,7 @@ public class NoteSourceFirebaseImp implements NoteSource {
         collection.orderBy("name", Query.Direction.ASCENDING).get()
                 .addOnCompleteListener(task -> {
                     notesData = new ArrayList<>();
-                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                    for (DocumentSnapshot documentSnapshot : Objects.requireNonNull(task.getResult())) {
 
                         Map<String, Object> doc = documentSnapshot.getData();
                         String id = documentSnapshot.getId();
@@ -102,6 +103,7 @@ public class NoteSourceFirebaseImp implements NoteSource {
     public void clearNoteData() {
         for (Note note : notesData) {
             String id = note.getId();
+            assert id != null;
             collection.document(id).delete()
                     .addOnSuccessListener(command -> notesData.clear());
         }

@@ -31,6 +31,7 @@ public class NoteFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String NOTE_ARG_PARAM = "NOTE_ARG_PARAM";
     private static final String POSITION_ARG_PARAM = "POSITION_ARG_PARAM";
+    private static final String DIALOG_ARG_PARAM = "DIALOG_ARG_PARAM";
 
     // TODO: Rename and change types of parameters
     private Note note = null;
@@ -38,8 +39,9 @@ public class NoteFragment extends Fragment {
     private EditText eDescription;
     private TextView tvDate;
     Calendar calendar;
-    private TextView tvAuthor;
+    private TextView tvUser;
     private int position;
+    private boolean isDialogCall;
 
     /**
      * Use this factory method to create a new instance of
@@ -49,11 +51,12 @@ public class NoteFragment extends Fragment {
      * @return A new instance of fragment NoteFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NoteFragment newInstance(Note note, int position) {
+    public static NoteFragment newInstance(Note note, int position, boolean isDialogCall) {
         NoteFragment fragment = new NoteFragment();
         Bundle args = new Bundle();
         args.putParcelable(NOTE_ARG_PARAM, note);
         args.putInt(POSITION_ARG_PARAM,position);
+        args.putBoolean(DIALOG_ARG_PARAM, isDialogCall);
         fragment.setArguments(args);
         return fragment;
     }
@@ -72,12 +75,17 @@ public class NoteFragment extends Fragment {
         eName = view.findViewById(R.id.name_edit_text);
         eDescription = view.findViewById(R.id.descriptions_edit_text);
         tvDate = view.findViewById(R.id.date);
-        tvAuthor = view.findViewById(R.id.author);
+        tvUser = view.findViewById(R.id.user);
         calendar=Calendar.getInstance();
         Button saveChanges = view.findViewById(R.id.save_changes);
 
         saveChanges.setOnClickListener(v -> {
-            Controller controller = (Controller) getActivity();
+            Controller controller;
+            if(isDialogCall){
+                controller = (Controller) getParentFragment();
+            }else {
+                controller = (Controller) getActivity();
+            }
             assert controller != null;
             Note newNote = changeCreateNote();
             controller.saveResult(newNote, position);
@@ -111,6 +119,8 @@ public class NoteFragment extends Fragment {
 
             note = getArguments().getParcelable(NOTE_ARG_PARAM);
             position = getArguments().getInt(POSITION_ARG_PARAM);
+            isDialogCall = getArguments().getBoolean(DIALOG_ARG_PARAM);
+
         }else throw new RuntimeException("Создайте фрагмент при помощи newInstance");
     }
 
@@ -119,7 +129,7 @@ public class NoteFragment extends Fragment {
         eName.setText(note.getName());
         eDescription.setText(note.getDescription());
         tvDate.setText(note.getDate().toString());
-        tvAuthor.setText(note.getAuthor());
+        tvUser.setText(User.INSTANCE.getNameUser());
 
     }
 

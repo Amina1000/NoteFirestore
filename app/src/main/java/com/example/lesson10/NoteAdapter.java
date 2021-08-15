@@ -32,7 +32,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.BaseViewHolder
     }
 
     // Передаём в конструктор источник данных
-    // В нашем случае это массив, но может быть и запрос к БД
     // Внесла коррективы в этот класс.
     // Изменили конструктор, добавили обозревателя.
     public void setDataSource(NoteSource dataSource) {
@@ -103,14 +102,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.BaseViewHolder
     // Сложные данные могут потребовать несколько View на один пункт списка
     public class NoteViewHolder extends BaseViewHolder {
 
-        private final TextView title;
-        private final TextView description;
+        private final TextView titleTV;
+        private final TextView descriptionTV;
 
         @RequiresApi(api = Build.VERSION_CODES.N)
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.title);
-            description = itemView.findViewById(R.id.description);
+            titleTV = itemView.findViewById(R.id.title);
+            descriptionTV = itemView.findViewById(R.id.description);
             AppCompatImageView image = itemView.findViewById(R.id.imageView);
 
             // Обработчик нажатий на этом ViewHolder
@@ -146,8 +145,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.BaseViewHolder
 
         public void setData(NoteSource noteSourceImp, int position) {
             Note note = noteSourceImp.getNoteData(position);
-            title.setText(note.getName());
-            description.setText(note.getDescription());
+            titleTV.setText(note.getName());
+            descriptionTV.setText(note.getDescription());
         }
     }
 
@@ -161,7 +160,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.BaseViewHolder
         }
 
         public void setData(NoteSource noteSourceImp, int position) {
-            title.setText(User.nameUser);
+            title.setText(User.INSTANCE.getNameUser());
         }
     }
 

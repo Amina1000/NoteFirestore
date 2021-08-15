@@ -39,7 +39,7 @@ public class AuthFragment extends Fragment {
     // Кнопка регистрации через Google
     private com.google.android.gms.common.SignInButton buttonSignIn;
     private TextView emailView;
-    private MaterialButton continue_;
+    private MaterialButton continueRun;
     private GoogleSignInAccount account;
 
 
@@ -72,7 +72,7 @@ public class AuthFragment extends Fragment {
                 .build();
 
         // Получаем клиента для регистрации и данные по клиенту
-        googleSignInClient = GoogleSignIn.getClient(getContext(), gso);
+        googleSignInClient = GoogleSignIn.getClient(getContext(),gso);
     }
 
     // Инициализация пользовательских элементов
@@ -85,8 +85,8 @@ public class AuthFragment extends Fragment {
         emailView = view.findViewById(R.id.email);
 
         // Кнопка «Продолжить», будем показывать главный фрагмент
-        continue_ = view.findViewById(R.id.continue_);
-        continue_.setOnClickListener(v -> ((Controller) requireActivity()).openMainScreen());
+        continueRun = view.findViewById(R.id.continue_);
+        continueRun.setOnClickListener(v -> ((Controller) requireActivity()).openMainScreen());
     }
 
     @Override
@@ -145,18 +145,18 @@ public class AuthFragment extends Fragment {
     // Обновляем данные о пользователе на экране
     private void updateUI() {
         emailView.setText(account.getEmail());
-        User.getUserData(account.getGivenName());
+        User.INSTANCE.setNameUser(account.getGivenName());
     }
 
     // Разрешить аутентификацию и запретить остальные действия
     private void enableSign(){
         buttonSignIn.setEnabled(true);
-        continue_.setEnabled(false);
+        continueRun.setEnabled(false);
     }
 
     // Запретить аутентификацию (уже прошла) и разрешить остальные действия
     private void disableSign(){
         buttonSignIn.setEnabled(false);
-        continue_.setEnabled(true);
+        continueRun.setEnabled(true);
     }
 }
